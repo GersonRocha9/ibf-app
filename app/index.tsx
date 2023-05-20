@@ -4,7 +4,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/poppins'
 import { Feather, Ionicons } from '@expo/vector-icons'
-import { Link } from 'expo-router'
+import { Link, SplashScreen } from 'expo-router'
 import {
   FlatList,
   Image,
@@ -15,6 +15,7 @@ import {
 } from 'react-native'
 
 import { StatusBar } from 'expo-status-bar'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import IBFLogo from '../src/assets/logo.png'
 
 const mockedEvents = [
@@ -33,17 +34,21 @@ const mockedEvents = [
 ]
 
 export default function App() {
+  const { top, bottom } = useSafeAreaInsets()
   const [hasLoadedFonts] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold,
   })
 
   if (!hasLoadedFonts) {
-    return null
+    return <SplashScreen />
   }
 
   return (
-    <ScrollView className="flex-1 bg-gray-50 p-5">
+    <ScrollView
+      className="flex-1 bg-gray-50 px-5"
+      contentContainerStyle={{ paddingBottom: bottom, paddingTop: top }}
+    >
       {/* Logo da IBF */}
       <Image
         source={IBFLogo}
