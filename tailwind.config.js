@@ -3,7 +3,12 @@ module.exports = {
   content: ['./App.tsx', './app/**/*.tsx'],
 
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        title: 'Poppins_700Bold',
+        body: 'Poppins_400Regular',
+      },
+    },
   },
   plugins: [],
 }
