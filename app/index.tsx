@@ -4,6 +4,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/poppins'
 import { Feather, Ionicons } from '@expo/vector-icons'
+import { Link } from 'expo-router'
 import {
   FlatList,
   Image,
@@ -14,7 +15,7 @@ import {
 } from 'react-native'
 
 import { StatusBar } from 'expo-status-bar'
-import IBFLogo from './src/assets/logo.png'
+import IBFLogo from '../src/assets/logo.png'
 
 const mockedEvents = [
   {
@@ -42,7 +43,7 @@ export default function App() {
   }
 
   return (
-    <ScrollView className="flex-1 bg-green-100 p-5">
+    <ScrollView className="flex-1 bg-gray-50 p-5">
       {/* Logo da IBF */}
       <Image
         source={IBFLogo}
@@ -52,7 +53,7 @@ export default function App() {
       />
 
       {/* Mensagem de boas vindas */}
-      <Text className="text-green-900 text-2xl font-title text-center">
+      <Text className="text-gray-950 text-2xl font-title text-center">
         Seja bem vindo(a) a Igreja Batista do Flamboyant!
       </Text>
 
@@ -64,7 +65,7 @@ export default function App() {
       {/* FlatList na horizontal com próximos eventos */}
       <View className="flex-row items-center gap-1 mt-5">
         <Feather name="calendar" size={24} color="#CC93AD" />
-        <Text className="font-title text-lg text-gray-900">
+        <Text className="font-title text-lg text-gray-950">
           Próximos eventos:
         </Text>
       </View>
@@ -81,14 +82,15 @@ export default function App() {
           </View>
         )}
       />
-      <TouchableOpacity className="mt-2">
-        <Text className="font-title text-gray-900">Ver todos</Text>
-      </TouchableOpacity>
+
+      <Link href="/map" className="mt-5">
+        <Text className="font-title text-gray-950">Ver todos</Text>
+      </Link>
 
       {/* FlatList na horizontal com as pastorais */}
       <View className="flex-row items-center gap-1 mt-5">
         <Ionicons name="reader-outline" size={24} color="#CC93AD" />
-        <Text className="font-title text-lg text-gray-900">Pastorais</Text>
+        <Text className="font-title text-lg text-gray-950">Pastorais</Text>
       </View>
 
       <FlatList
@@ -105,7 +107,7 @@ export default function App() {
       />
 
       <TouchableOpacity className="mt-2">
-        <Text className="font-title text-gray-900">Ver todos</Text>
+        <Text className="font-title text-gray-950">Ver todos</Text>
       </TouchableOpacity>
 
       <StatusBar style="dark" />
