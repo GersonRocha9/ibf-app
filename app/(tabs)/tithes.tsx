@@ -91,8 +91,9 @@ export default function Tithes() {
         )}
         className="mt-4 px-1"
         ItemSeparatorComponent={() => (
-          <View className="h-1 border border-gray-200" />
+          <View className="h-[1px] border border-gray-200" />
         )}
+        showsVerticalScrollIndicator={false}
       />
 
       <TouchableOpacity onPress={copyToClipboard}>
