@@ -1,5 +1,4 @@
-import { Feather, Ionicons } from '@expo/vector-icons'
-import { Link } from 'expo-router'
+import { CalendarCheck, Notebook } from 'phosphor-react-native'
 import {
   FlatList,
   Image,
@@ -9,6 +8,7 @@ import {
   View,
 } from 'react-native'
 
+import { Link } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import IBFLogo from '../../src/assets/logo.png'
 
@@ -55,7 +55,7 @@ export default function Home() {
 
       {/* FlatList na horizontal com próximos eventos */}
       <View className="flex-row items-center gap-1 mt-5">
-        <Feather name="calendar" size={24} color="#CC93AD" />
+        <CalendarCheck size={24} color="#CC93AD" weight="bold" />
         <Text className="font-title text-lg text-gray-950">
           Próximos eventos:
         </Text>
@@ -80,7 +80,7 @@ export default function Home() {
 
       {/* FlatList na horizontal com as pastorais */}
       <View className="flex-row items-center gap-1 mt-5">
-        <Ionicons name="reader-outline" size={24} color="#CC93AD" />
+        <Notebook size={24} color="#CC93AD" weight="bold" />
         <Text className="font-title text-lg text-gray-950">Pastorais</Text>
       </View>
 
