@@ -7,6 +7,7 @@ import { SplashScreen, Stack } from 'expo-router'
 import React, { useEffect } from 'react'
 
 import { StatusBar } from 'expo-status-bar'
+import Toast from 'react-native-toast-message'
 
 export { ErrorBoundary } from 'expo-router'
 
@@ -38,7 +39,7 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-
+      <Toast />
       <StatusBar style="dark" />
     </>
   )
