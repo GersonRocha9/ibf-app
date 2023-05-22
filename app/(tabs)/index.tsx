@@ -1,10 +1,5 @@
-import {
-  Poppins_400Regular,
-  Poppins_700Bold,
-  useFonts,
-} from '@expo-google-fonts/poppins'
 import { Feather, Ionicons } from '@expo/vector-icons'
-import { Link, SplashScreen } from 'expo-router'
+import { Link } from 'expo-router'
 import {
   FlatList,
   Image,
@@ -14,9 +9,8 @@ import {
   View,
 } from 'react-native'
 
-import { StatusBar } from 'expo-status-bar'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import IBFLogo from '../src/assets/logo.png'
+import IBFLogo from '../../src/assets/logo.png'
 
 const mockedEvents = [
   {
@@ -33,16 +27,8 @@ const mockedEvents = [
   },
 ]
 
-export default function App() {
+export default function Home() {
   const { top, bottom } = useSafeAreaInsets()
-  const [hasLoadedFonts] = useFonts({
-    Poppins_400Regular,
-    Poppins_700Bold,
-  })
-
-  if (!hasLoadedFonts) {
-    return <SplashScreen />
-  }
 
   return (
     <ScrollView
@@ -114,8 +100,6 @@ export default function App() {
       <TouchableOpacity className="mt-2">
         <Text className="font-title text-gray-950">Ver todos</Text>
       </TouchableOpacity>
-
-      <StatusBar style="dark" />
     </ScrollView>
   )
 }
