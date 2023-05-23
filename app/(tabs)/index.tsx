@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react'
 
 import IBFLogo from '../../src/assets/logo.png'
 import { Link } from 'expo-router'
-import { api } from '../../src/services'
+import { sanityAPI } from '../../src/services'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface Event {
@@ -54,7 +54,7 @@ export default function Home() {
   const [events, setEvents] = useState<Event[]>([])
 
   async function getEvents() {
-    const response = await api.get('')
+    const response = await sanityAPI.get('')
 
     const eventsOrderByDate = response.data.result.sort((a, b) => {
       const dateA = new Date(a.date)
@@ -69,7 +69,8 @@ export default function Home() {
   const formattedEvents = events.map((event) => {
     const formattedImage = event.image.asset._ref
       .replace('image-', '')
-      .replace('-jpg', '')
+      .replace('-jpg', '.jpg')
+      .replace('-png', '.png')
 
     return {
       ...event,
@@ -108,10 +109,10 @@ export default function Home() {
       {/* Banner do Evento Principal */}
       <ImageBackground
         source={{
-          uri: `https://cdn.sanity.io/images/k1j0zc38/production/${formattedEvents[0].image.asset._ref}.jpg`,
+          uri: `https://cdn.sanity.io/images/k1j0zc38/production/${formattedEvents[0]?.image?.asset?._ref}`,
         }}
-        className="mt-5 h-40"
-      ></ImageBackground>
+        className="mt-5 h-40 rounded-lg overflow-hidden"
+      />
 
       {/* FlatList na horizontal com próximos eventos */}
       <View className="flex-row items-center gap-1 mt-5">
@@ -130,10 +131,10 @@ export default function Home() {
         renderItem={({ item: event }) => (
           <ImageBackground
             source={{
-              uri: `https://cdn.sanity.io/images/k1j0zc38/production/${event.image.asset._ref}.jpg`,
+              uri: `https://cdn.sanity.io/images/k1j0zc38/production/${event?.image?.asset?._ref}`,
             }}
-            className="rounded-2xl w-40 h-40"
-          ></ImageBackground>
+            className="rounded-lg w-40 h-40 overflow-hidden"
+          />
         )}
         className="mt-2"
       />

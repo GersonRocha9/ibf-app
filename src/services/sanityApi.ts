@@ -5,6 +5,6 @@ const DATASET = 'production'
 const QUERY = encodeURIComponent('*[_type == "event"]')
 const URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`
 
-export const api = axios.create({
+export const sanityAPI = axios.create({
   baseURL: URL,
 })

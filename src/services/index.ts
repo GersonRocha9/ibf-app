@@ -1,1 +1,2 @@
-export { api } from './api'
+export { sanityAPI } from './sanityApi'
+export { youtubeAPI } from './youtubeApi'
