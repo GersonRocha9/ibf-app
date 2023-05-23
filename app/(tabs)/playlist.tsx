@@ -78,7 +78,7 @@ export default function Playlist() {
         source={{
           uri: messagesVideos[0]?.video.thumbnails[3].url,
         }}
-        className="mt-5 h-40 rounded-lg overflow-hidden"
+        className="mt-5 rounded-lg overflow-hidden aspect-video w-full"
       />
 
       {/* FlatList na horizontal com as últimas mensagens */}
@@ -90,7 +90,7 @@ export default function Playlist() {
       </View>
 
       <FlatList
-        data={messagesVideos}
+        data={messagesVideos.slice(1)}
         keyExtractor={(item) => String(item.video.videoId)}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -101,7 +101,7 @@ export default function Playlist() {
             source={{
               uri: item.video.thumbnails[3].url,
             }}
-            className="rounded-lg w-40 h-40 overflow-hidden"
+            className="rounded-lg w-56 overflow-hidden aspect-video"
           />
         )}
       />
@@ -124,7 +124,7 @@ export default function Playlist() {
             source={{
               uri: item.video.thumbnails[3].url,
             }}
-            className="rounded-lg w-40 h-40 overflow-hidden"
+            className="rounded-lg w-56 overflow-hidden aspect-video"
           />
         )}
       />

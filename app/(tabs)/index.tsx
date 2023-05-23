@@ -106,12 +106,16 @@ export default function Home() {
         Seja bem vindo(a) a Igreja Batista do Flamboyant!
       </Text>
 
+      <View className="flex-row items-center gap-1 mt-5">
+        <CalendarCheck size={24} color="#CC93AD" weight="bold" />
+        <Text className="font-title text-lg text-gray-950">Em destaque:</Text>
+      </View>
       {/* Banner do Evento Principal */}
       <ImageBackground
         source={{
           uri: `https://cdn.sanity.io/images/k1j0zc38/production/${formattedEvents[0]?.image?.asset?._ref}`,
         }}
-        className="mt-5 h-40 rounded-lg overflow-hidden"
+        className="mt-2 rounded-lg overflow-hidden aspect-square w-full"
       />
 
       {/* FlatList na horizontal com próximos eventos */}
@@ -123,7 +127,7 @@ export default function Home() {
       </View>
 
       <FlatList
-        data={formattedEvents}
+        data={formattedEvents.slice(1)}
         keyExtractor={(event) => String(event._id)}
         horizontal
         showsHorizontalScrollIndicator={false}
