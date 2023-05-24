@@ -6,9 +6,9 @@ import {
   View,
 } from 'react-native'
 
-import { useState } from 'react'
 import DropDownPicker from 'react-native-dropdown-picker'
 import Toast from 'react-native-toast-message'
+import { useState } from 'react'
 
 export default function BabyPresentation() {
   const [worshipOpen, setWorshipOpen] = useState(false)
@@ -16,7 +16,7 @@ export default function BabyPresentation() {
   const [worshipDate, setWorshipDate] = useState(null)
   const [isMember, setIsMember] = useState(null)
 
-  const [items, setItems] = useState([
+  const [worshipItems, setWorshipItems] = useState([
     {
       label: 'Domingo - 10h',
       value: 'sunday10',
@@ -99,10 +99,10 @@ export default function BabyPresentation() {
             <DropDownPicker
               open={worshipOpen}
               value={worshipDate}
-              items={items}
+              items={worshipItems}
               setOpen={setWorshipOpen}
               setValue={setWorshipDate}
-              setItems={setItems}
+              setItems={setWorshipItems}
               theme="LIGHT"
               placeholder="Selecione uma data"
               placeholderStyle={{
