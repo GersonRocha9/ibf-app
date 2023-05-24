@@ -1,7 +1,15 @@
-import { AirplaneTilt, MicrophoneStage } from 'phosphor-react-native'
-import { FlatList, ImageBackground, ScrollView, Text, View } from 'react-native'
+import * as WebBrowser from 'expo-web-browser'
+
+import {
+  ActivityIndicator,
+  ImageBackground,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native'
 import { useEffect, useState } from 'react'
 
+import { PlaylistCarousel } from '../../src/components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { youtubeAPI } from '../../src/services'
 
@@ -32,6 +40,7 @@ export default function Playlist() {
   const { top, bottom } = useSafeAreaInsets()
   const [missionsVideos, setMissionsVideos] = useState<VideoPlayList[]>([])
   const [messagesVideos, setMessagesVideos] = useState<VideoPlayList[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   async function getMessageVideos() {
     const response = await youtubeAPI.get('/playlist/videos/', {
@@ -59,10 +68,29 @@ export default function Playlist() {
     setMissionsVideos(response.data.contents)
   }
 
+  async function handleOpenVideoOnYouTube(videoId) {
+    await WebBrowser.openBrowserAsync(
+      `https://www.youtube.com/watch?v=${videoId}`,
+    )
+  }
+
   useEffect(() => {
-    getMissionsVideos()
-    getMessageVideos()
+    async function getVideos() {
+      await Promise.all([getMessageVideos(), getMissionsVideos()])
+
+      setIsLoading(false)
+    }
+
+    getVideos()
   }, [])
+
+  if (isLoading) {
+    return (
+      <View className="flex-1 bg-gray-50 items-center justify-center">
+        <ActivityIndicator size="large" color="#000" />
+      </View>
+    )
+  }
 
   return (
     <ScrollView
@@ -73,7 +101,6 @@ export default function Playlist() {
         Mensagens 2023
       </Text>
 
-      {/* Banner do Evento 01 */}
       <ImageBackground
         source={{
           uri: messagesVideos[0]?.video.thumbnails[3].url,
@@ -81,52 +108,17 @@ export default function Playlist() {
         className="mt-5 rounded-lg overflow-hidden aspect-video w-full"
       />
 
-      {/* FlatList na horizontal com as últimas mensagens */}
-      <View className="flex-row items-center gap-1 mt-5">
-        <MicrophoneStage size={24} color="#CC93AD" weight="bold" />
-        <Text className="font-title text-lg text-gray-950">
-          Mensagens anteriores:
-        </Text>
-      </View>
-
-      <FlatList
-        data={messagesVideos.slice(1)}
-        keyExtractor={(item) => String(item.video.videoId)}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View className="w-2" />}
-        className="mt-2"
-        renderItem={({ item }) => (
-          <ImageBackground
-            source={{
-              uri: item.video.thumbnails[3].url,
-            }}
-            className="rounded-lg w-56 overflow-hidden aspect-video"
-          />
-        )}
+      <PlaylistCarousel
+        title="Mensagens anteriores"
+        data={messagesVideos}
+        hasSpotlight
+        onPress={handleOpenVideoOnYouTube}
       />
 
-      {/* FlatList na horizontal com as missões */}
-      <View className="flex-row items-center gap-1 mt-5">
-        <AirplaneTilt size={24} color="#CC93AD" weight="bold" />
-        <Text className="font-title text-lg text-gray-950">Missões</Text>
-      </View>
-
-      <FlatList
+      <PlaylistCarousel
+        title="Missões"
         data={missionsVideos}
-        keyExtractor={(item) => String(item.video.videoId)}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View className="w-2" />}
-        className="mt-2"
-        renderItem={({ item }) => (
-          <ImageBackground
-            source={{
-              uri: item.video.thumbnails[3].url,
-            }}
-            className="rounded-lg w-56 overflow-hidden aspect-video"
-          />
-        )}
+        onPress={handleOpenVideoOnYouTube}
       />
     </ScrollView>
   )

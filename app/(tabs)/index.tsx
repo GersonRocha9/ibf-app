@@ -1,17 +1,9 @@
-import { CalendarCheck, Notebook } from 'phosphor-react-native'
-import {
-  FlatList,
-  Image,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Image, ImageBackground, ScrollView, Text, View } from 'react-native'
 import { useEffect, useState } from 'react'
 
+import { CalendarCheck } from 'phosphor-react-native'
+import { EventCarousel } from '../../src/components'
 import IBFLogo from '../../src/assets/logo.png'
-import { Link } from 'expo-router'
 import { sanityAPI } from '../../src/services'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -33,21 +25,6 @@ interface Event {
   place: string
   title: string
 }
-
-const mockedPastorals = [
-  {
-    id: 1,
-    title: 'Pastoral 01',
-  },
-  {
-    id: 2,
-    title: 'Pastoral 02',
-  },
-  {
-    id: 3,
-    title: 'Pastoral 03',
-  },
-]
 
 export default function Home() {
   const { top, bottom } = useSafeAreaInsets()
@@ -118,57 +95,12 @@ export default function Home() {
         className="mt-2 rounded-lg overflow-hidden aspect-square w-full"
       />
 
-      {/* FlatList na horizontal com próximos eventos */}
-      <View className="flex-row items-center gap-1 mt-5">
-        <CalendarCheck size={24} color="#CC93AD" weight="bold" />
-        <Text className="font-title text-lg text-gray-950">
-          Próximos eventos:
-        </Text>
-      </View>
-
-      <FlatList
-        data={formattedEvents.slice(1)}
-        keyExtractor={(event) => String(event._id)}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View className="w-2" />}
-        renderItem={({ item: event }) => (
-          <ImageBackground
-            source={{
-              uri: `https://cdn.sanity.io/images/k1j0zc38/production/${event?.image?.asset?._ref}`,
-            }}
-            className="rounded-lg w-40 h-40 overflow-hidden"
-          />
-        )}
-        className="mt-2"
+      <EventCarousel
+        data={formattedEvents}
+        title="Próximos eventos"
+        seeAll
+        hasSpotlight
       />
-
-      <Link href="/map" className="mt-5">
-        <Text className="font-title text-gray-950">Ver todos</Text>
-      </Link>
-
-      {/* FlatList na horizontal com as pastorais */}
-      <View className="flex-row items-center gap-1 mt-5">
-        <Notebook size={24} color="#CC93AD" weight="bold" />
-        <Text className="font-title text-lg text-gray-950">Pastorais</Text>
-      </View>
-
-      <FlatList
-        data={mockedPastorals}
-        keyExtractor={(item) => String(item.id)}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View className="w-2" />}
-        renderItem={({ item }) => (
-          <View className="bg-gray-200 rounded-lg mt-2 w-40 h-40 justify-center items-center">
-            <Text className="font-body text-base">{item.title}</Text>
-          </View>
-        )}
-      />
-
-      <TouchableOpacity className="mt-2">
-        <Text className="font-title text-gray-950">Ver todos</Text>
-      </TouchableOpacity>
     </ScrollView>
   )
 }

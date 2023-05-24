@@ -47,7 +47,7 @@ function RootLayoutNav() {
         <Stack.Screen
           name="[...missing]"
           options={{
-            title: 'Página não encontrada',
+            title: 'Em breve 🔒',
           }}
         />
       </Stack>

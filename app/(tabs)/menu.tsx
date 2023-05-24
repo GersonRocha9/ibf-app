@@ -25,13 +25,13 @@ export default function Menu() {
 
       <View className="mt-5">
         <MenuItem
-          href="/events"
+          href="/"
           icon={<CalendarCheck size={20} weight="bold" />}
           text="Eventos"
         />
 
         <MenuItem
-          href="/messages"
+          href="/playlist"
           icon={<MicrophoneStage size={20} weight="bold" />}
           text="Mensagens"
         />
@@ -63,7 +63,7 @@ export default function Menu() {
         <MenuItem
           href="/pastorals"
           icon={<Notebook size={20} weight="bold" />}
-          text="Pastorais da semana"
+          text="Pastorais"
         />
 
         <MenuItem
