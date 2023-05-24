@@ -10,8 +10,8 @@ import {
 } from 'phosphor-react-native'
 import { Text, View } from 'react-native'
 
-import { MenuItem } from '../../src/components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { MenuItem } from '../../src/components'
 
 export default function Menu() {
   const { top, bottom } = useSafeAreaInsets()
@@ -43,7 +43,7 @@ export default function Menu() {
         />
 
         <MenuItem
-          href="/babiesPresentation"
+          href="/babyPresentation"
           icon={<Baby size={20} weight="bold" />}
           text="Apresentação de bebês"
         />

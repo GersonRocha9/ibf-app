@@ -3,8 +3,8 @@ import {
   Poppins_700Bold,
   useFonts,
 } from '@expo-google-fonts/poppins'
-import React, { useEffect } from 'react'
 import { SplashScreen, Stack } from 'expo-router'
+import React, { useEffect } from 'react'
 
 import { StatusBar } from 'expo-status-bar'
 import Toast from 'react-native-toast-message'
@@ -44,6 +44,21 @@ function RootLayoutNav() {
             title: 'Downloads',
           }}
         />
+
+        <Stack.Screen
+          name="babyPresentation"
+          options={{
+            title: 'Apresentação de bebês',
+          }}
+        />
+
+        <Stack.Screen
+          name="prayerRequest"
+          options={{
+            title: 'Pedidos de oração',
+          }}
+        />
+
         <Stack.Screen
           name="[...missing]"
           options={{
