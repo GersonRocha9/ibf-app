@@ -3,8 +3,8 @@ import {
   Poppins_700Bold,
   useFonts,
 } from '@expo-google-fonts/poppins'
-import { SplashScreen, Stack } from 'expo-router'
 import React, { useEffect } from 'react'
+import { SplashScreen, Stack } from 'expo-router'
 
 import { StatusBar } from 'expo-status-bar'
 import Toast from 'react-native-toast-message'
@@ -38,6 +38,18 @@ function RootLayoutNav() {
     <>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="downloads"
+          options={{
+            title: 'Downloads',
+          }}
+        />
+        <Stack.Screen
+          name="[...missing]"
+          options={{
+            title: 'Página não encontrada',
+          }}
+        />
       </Stack>
       <Toast />
       <StatusBar style="dark" />

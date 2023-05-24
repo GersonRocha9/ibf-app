@@ -3,42 +3,9 @@ import * as Clipboard from 'expo-clipboard'
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 
 import { Copy } from 'phosphor-react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Toast from 'react-native-toast-message'
-import itauLogo from '../../src/assets/itauLogo.png'
-import pixLogo from '../../src/assets/pixLogo.png'
-import santanderLogo from '../../src/assets/santanderLogo.png'
-import sicoobLogo from '../../src/assets/sicoobLogo.png'
-
-const tithes = [
-  {
-    id: '1',
-    bank: 'Banco Itaú - 341',
-    agency: 'Agência: 2997',
-    account: 'C/C: 23592-0',
-    bankLogo: itauLogo,
-  },
-  {
-    id: '2',
-    bank: 'Banco Santander - 033',
-    agency: 'Agência: 1471',
-    account: 'C/C: 13-003001-5',
-    bankLogo: santanderLogo,
-  },
-  {
-    id: '3',
-    bank: 'SICOOB - 756',
-    agency: 'Agência: 4222-6',
-    account: 'C/C: 13025-7',
-    bankLogo: sicoobLogo,
-  },
-  {
-    id: '4',
-    bank: 'CHAVE PIX - CNPJ',
-    agency: '08.947.952/0001-29',
-    bankLogo: pixLogo,
-  },
-]
+import { tithes } from '../../src/utils'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Tithes() {
   const { top, bottom } = useSafeAreaInsets()
