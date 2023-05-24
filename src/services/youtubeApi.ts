@@ -1,9 +1,11 @@
+import { ENV_RAPIDAPI_HOST, ENV_RAPIDAPI_KEY, ENV_RAPIDAPI_URL } from '@env'
+
 import axios from 'axios'
 
 export const youtubeAPI = axios.create({
-  baseURL: 'https://youtube138.p.rapidapi.com',
+  baseURL: ENV_RAPIDAPI_URL,
   headers: {
-    'X-RapidAPI-Key': '1ffe295876msh25eb305e6c62da5p1af18cjsn99a9f0ae72ac',
-    'X-RapidAPI-Host': 'youtube138.p.rapidapi.com',
+    'X-RapidAPI-Key': ENV_RAPIDAPI_KEY,
+    'X-RapidAPI-Host': ENV_RAPIDAPI_HOST,
   },
 })
