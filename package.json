@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.3",
+    "@hookform/resolvers": "^3.1.0",
     "@sanity/client": "^6.1.2",
     "@supabase/supabase-js": "^2.22.0",
     "@types/react": "~18.0.27",
@@ -25,6 +26,7 @@
     "nativewind": "^2.0.11",
     "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-native": "0.71.8",
     "react-native-dotenv": "^3.4.8",
     "react-native-dropdown-picker": "^5.4.6",
@@ -35,7 +37,8 @@
     "react-native-toast-message": "^2.1.6",
     "react-native-url-polyfill": "^1.3.0",
     "tailwindcss": "^3.3.2",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

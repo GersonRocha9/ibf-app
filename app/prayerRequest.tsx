@@ -7,37 +7,51 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { Controller, useForm } from 'react-hook-form'
 import { ENV_SUPABASE_TOKEN, ENV_SUPABASE_URL } from '@env'
 
 import Toast from 'react-native-toast-message'
 import { createClient } from '@supabase/supabase-js'
 import { useState } from 'react'
+import z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const supabase = createClient(ENV_SUPABASE_URL, ENV_SUPABASE_TOKEN)
 
+const PrayerRequestSchema = z.object({
+  name: z.string().nonempty({
+    message: 'Por favor, preencha seu nome',
+  }),
+  phone: z.string().nonempty({
+    message: 'Por favor, preencha seu telefone',
+  }),
+  prayerRequest: z.string().nonempty({
+    message: 'Por favor, preencha seu pedido de oração',
+  }),
+})
+
+type PrayerRequestProps = z.infer<typeof PrayerRequestSchema>
+
 export default function PrayerRequest() {
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [prayerRequest, setPrayerRequest] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  async function handleCreatePrayerRequest() {
-    if (!name || !phone || !prayerRequest) {
-      Toast.show({
-        type: 'error',
-        position: 'bottom',
-        text1: 'Por favor, preencha todos os campos!',
-      })
-      return
-    }
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<PrayerRequestProps>({
+    resolver: zodResolver(PrayerRequestSchema),
+  })
 
+  async function handleCreatePrayerRequest(data: PrayerRequestProps) {
     try {
       setIsLoading(true)
 
       await supabase.from('prayers').insert({
-        name,
-        phone,
-        prayerRequest,
+        name: data.name,
+        phone: data.phone,
+        prayerRequest: data.prayerRequest,
       })
 
       Toast.show({
@@ -47,9 +61,7 @@ export default function PrayerRequest() {
         text2: 'Que Deus abençoe sua vida! 🙏🏼',
       })
 
-      setName('')
-      setPhone('')
-      setPrayerRequest('')
+      reset()
       setIsLoading(false)
     } catch (error) {
       console.log(error)
@@ -67,43 +79,77 @@ export default function PrayerRequest() {
         Preencha o formulário abaixo para enviar seu pedido de oração
       </Text>
 
-      <View className="mt-5 flex flex-col space-y-5">
-        <TextInput
-          className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
-          placeholder="Nome"
-          placeholderTextColor="#A0AEC0"
-          value={name}
-          onChangeText={setName}
+      <View className="mt-5 flex flex-col">
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              className={`border ${
+                errors?.name ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg px-3 py-2 text-lg font-body mb-4`}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              placeholder="Nome"
+              placeholderTextColor="#A0AEC0"
+            />
+          )}
+          name="name"
         />
 
-        <TextInput
-          className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
-          placeholder="Telefone"
-          placeholderTextColor="#A0AEC0"
-          value={phone}
-          onChangeText={setPhone}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              className={`border ${
+                errors?.phone ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg px-3 py-2 text-lg font-body mb-4`}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              placeholder="Telefone"
+              placeholderTextColor="#A0AEC0"
+            />
+          )}
+          name="phone"
         />
 
-        <TextInput
-          multiline
-          className="px-3 py-2 font-body text-lg border border-gray-300 rounded-lg"
-          placeholder="Ex: Peço oração pela minha família..."
-          placeholderTextColor="#A0AEC0"
-          textAlignVertical="top"
-          value={prayerRequest}
-          onChangeText={setPrayerRequest}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              multiline
+              className={`border ${
+                errors?.prayerRequest ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg px-3 py-2 text-lg font-body mb-4`}
+              placeholder="Ex: Peço oração pela minha família..."
+              placeholderTextColor="#A0AEC0"
+              textAlignVertical="top"
+              numberOfLines={5}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="prayerRequest"
         />
 
         <TouchableOpacity
           activeOpacity={0.7}
           className="items-center rounded-lg bg-green-900 px-3 py-4"
-          onPress={handleCreatePrayerRequest}
-          style={{
-            opacity: isLoading || !name || !phone || !prayerRequest ? 0.5 : 1,
-          }}
+          onPress={handleSubmit(handleCreatePrayerRequest)}
         >
           {isLoading ? (
-            <ActivityIndicator color="fff" size={18} />
+            <ActivityIndicator color="#fff" size={18} />
           ) : (
             <Text className="font-title text-lg uppercase text-white">
               Enviar
