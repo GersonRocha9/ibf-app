@@ -33,12 +33,14 @@ export default function Home() {
   async function getEvents() {
     const response = await sanityAPI.get('')
 
-    const eventsOrderByDate = response.data.result.sort((a, b) => {
-      const dateA = new Date(a.date)
-      const dateB = new Date(b.date)
+    const eventsOrderByDate = response.data.result.sort(
+      (a: Event, b: Event) => {
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
 
-      return dateB.getTime() - dateA.getTime()
-    })
+        return dateB.getTime() - dateA.getTime()
+      },
+    )
 
     setEvents(eventsOrderByDate)
   }

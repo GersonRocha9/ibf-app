@@ -17,7 +17,7 @@ export default function PrayerRequest() {
         Preencha o formulário abaixo para enviar seu pedido de oração
       </Text>
 
-      <View className="mt-5 flex flex-col space-y-6">
+      <View className="mt-5 flex flex-col space-y-5">
         <TextInput
           className="border border-gray-300 rounded-lg p-4 text-lg font-body"
           placeholder="Nome"

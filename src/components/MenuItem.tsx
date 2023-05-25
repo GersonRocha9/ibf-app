@@ -2,7 +2,6 @@ import { Text, TouchableOpacity, View } from 'react-native'
 
 import { Link } from 'expo-router'
 import { ReactNode } from 'react'
-import { Separator } from '../components'
 
 interface MenuItemProps {
   href: string
@@ -19,7 +18,8 @@ export function MenuItem({ href, icon, text }: MenuItemProps) {
 
           <Text className="font-body text-base">{text}</Text>
         </View>
-        <Separator />
+
+        <View className="h-1 my-2 border-b border-gray-200 flex-1" />
       </TouchableOpacity>
     </Link>
   )

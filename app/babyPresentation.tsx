@@ -62,34 +62,34 @@ export default function BabyPresentation() {
           Preencha o formulário abaixo para apresentar seu bebê em nossa Igreja
         </Text>
 
-        <View className="mt-5 flex flex-1 flex-col space-y-6">
+        <View className="mt-5 flex flex-1 flex-col space-y-5">
           <TextInput
-            className="border border-gray-300 rounded-lg p-4 text-lg font-body"
+            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
             placeholder="Nome da mãe"
             placeholderTextColor="#A0AEC0"
           />
 
           <TextInput
-            className="border border-gray-300 rounded-lg p-4 text-lg font-body"
+            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
             placeholder="Nome do pai"
             placeholderTextColor="#A0AEC0"
           />
 
           <TextInput
-            className="border border-gray-300 rounded-lg p-4 text-lg font-body"
+            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
             placeholder="Telefone"
             placeholderTextColor="#A0AEC0"
             keyboardType="numeric"
           />
 
           <TextInput
-            className="border border-gray-300 rounded-lg p-4 text-lg font-body"
+            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
             placeholder="Nome do bebê"
             placeholderTextColor="#A0AEC0"
           />
 
           <TextInput
-            className="border border-gray-300 rounded-lg p-4 text-lg font-body"
+            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
             placeholder="Idade"
             placeholderTextColor="#A0AEC0"
             keyboardType="numeric"
@@ -103,11 +103,11 @@ export default function BabyPresentation() {
               setOpen={setWorshipOpen}
               setValue={setWorshipDate}
               setItems={setWorshipItems}
-              theme="LIGHT"
               placeholder="Selecione uma data"
               placeholderStyle={{
                 color: '#A0AEC0',
                 fontSize: 18,
+                fontFamily: 'Poppins_400Regular',
               }}
               style={{
                 backgroundColor: '#f9fafb',
@@ -126,11 +126,11 @@ export default function BabyPresentation() {
               setOpen={setMemberOpen}
               setValue={setIsMember}
               setItems={setMemberItems}
-              theme="LIGHT"
               placeholder="É membro da IBF?"
               placeholderStyle={{
                 color: '#A0AEC0',
                 fontSize: 18,
+                fontFamily: 'Poppins_400Regular',
               }}
               style={{
                 backgroundColor: '#f9fafb',

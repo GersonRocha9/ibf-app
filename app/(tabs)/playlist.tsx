@@ -5,6 +5,7 @@ import {
   ImageBackground,
   ScrollView,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native'
 import { useEffect, useState } from 'react'
@@ -68,7 +69,7 @@ export default function Playlist() {
     setMissionsVideos(response.data.contents)
   }
 
-  async function handleOpenVideoOnYouTube(videoId) {
+  async function handleOpenVideoOnYouTube(videoId: string) {
     await WebBrowser.openBrowserAsync(
       `https://www.youtube.com/watch?v=${videoId}`,
     )
@@ -106,7 +107,14 @@ export default function Playlist() {
           uri: messagesVideos[0]?.video.thumbnails[3].url,
         }}
         className="mt-5 rounded-lg overflow-hidden aspect-video w-full"
-      />
+      >
+        <TouchableOpacity
+          onPress={() => {
+            handleOpenVideoOnYouTube(messagesVideos[0].video.videoId)
+          }}
+          className="flex-1"
+        />
+      </ImageBackground>
 
       <PlaylistCarousel
         title="Mensagens anteriores"

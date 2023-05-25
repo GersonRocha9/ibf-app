@@ -8,6 +8,7 @@ interface EventCarouselProps {
   data: any[]
   seeAll?: boolean
   hasSpotlight?: boolean
+  href?: string
 }
 
 export function EventCarousel({
@@ -15,6 +16,7 @@ export function EventCarousel({
   data,
   seeAll = false,
   hasSpotlight = false,
+  href,
 }: EventCarouselProps) {
   return (
     <>
@@ -41,7 +43,7 @@ export function EventCarousel({
       />
 
       {seeAll && (
-        <Link href="/map" className="mt-5">
+        <Link href={href || '/events'} className="mt-2">
           <Text className="font-title text-gray-950">Ver todos</Text>
         </Link>
       )}
