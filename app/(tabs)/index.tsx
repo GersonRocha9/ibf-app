@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   Image,
@@ -6,13 +7,12 @@ import {
   Text,
   View,
 } from 'react-native'
-import { useEffect, useState } from 'react'
 
 import { CalendarCheck } from 'phosphor-react-native'
-import { EventCarousel } from '../../src/components'
-import IBFLogo from '../../src/assets/logo.png'
-import { sanityAPI } from '../../src/services'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import IBFLogo from '../../src/assets/logo.png'
+import { EventCarousel } from '../../src/components'
+import { sanityAPI } from '../../src/services'
 
 interface Event {
   _id: string
@@ -39,7 +39,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
 
   async function getEvents() {
-    const response = await sanityAPI.get('')
+    const response = await sanityAPI.get('', {
+      params: {
+        query: '*[_type == "event"]',
+      },
+    })
 
     const eventsOrderByDate = response.data.result.sort(
       (a: Event, b: Event) => {

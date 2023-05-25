@@ -3,8 +3,8 @@ import {
   Poppins_700Bold,
   useFonts,
 } from '@expo-google-fonts/poppins'
-import React, { useEffect } from 'react'
 import { SplashScreen, Stack } from 'expo-router'
+import React, { useEffect } from 'react'
 
 import { StatusBar } from 'expo-status-bar'
 import Toast from 'react-native-toast-message'
@@ -50,6 +50,9 @@ function RootLayoutNav() {
           options={{
             title: 'Apresentação de bebês',
             headerBackTitleVisible: false,
+            headerTitleStyle: {
+              fontFamily: 'Poppins_700Bold',
+            },
           }}
         />
 
@@ -58,6 +61,9 @@ function RootLayoutNav() {
           options={{
             title: 'Pedidos de oração',
             headerBackTitleVisible: false,
+            headerTitleStyle: {
+              fontFamily: 'Poppins_700Bold',
+            },
           }}
         />
 
@@ -66,6 +72,9 @@ function RootLayoutNav() {
           options={{
             title: 'Em breve 🔒',
             headerBackTitleVisible: false,
+            headerTitleStyle: {
+              fontFamily: 'Poppins_700Bold',
+            },
           }}
         />
       </Stack>

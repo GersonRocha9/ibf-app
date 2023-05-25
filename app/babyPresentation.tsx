@@ -1,20 +1,31 @@
 import {
+  ActivityIndicator,
   SafeAreaView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native'
+import { ENV_SUPABASE_TOKEN, ENV_SUPABASE_URL } from '@env'
 
 import DropDownPicker from 'react-native-dropdown-picker'
 import Toast from 'react-native-toast-message'
+import { createClient } from '@supabase/supabase-js'
 import { useState } from 'react'
 
+const supabase = createClient(ENV_SUPABASE_URL, ENV_SUPABASE_TOKEN)
+
 export default function BabyPresentation() {
+  const [motherName, setMotherName] = useState('')
+  const [fatherName, setFatherName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [babyName, setBabyName] = useState('')
+  const [babyAge, setBabyAge] = useState('')
   const [worshipOpen, setWorshipOpen] = useState(false)
-  const [memberOpen, setMemberOpen] = useState(false)
   const [worshipDate, setWorshipDate] = useState(null)
+  const [memberOpen, setMemberOpen] = useState(false)
   const [isMember, setIsMember] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [worshipItems, setWorshipItems] = useState([
     {
@@ -46,13 +57,61 @@ export default function BabyPresentation() {
     },
   ])
 
-  function handleCreateBabyPresentation() {
-    Toast.show({
-      type: 'success',
-      position: 'bottom',
-      text1: 'Solicitação enviada com sucesso! 👶🏼',
-      text2: 'Em breve entraremos em contato com você.',
-    })
+  async function handleCreateBabyPresentation() {
+    if (
+      !motherName ||
+      !phone ||
+      !babyName ||
+      !babyAge ||
+      !worshipDate ||
+      !isMember
+    ) {
+      Toast.show({
+        type: 'error',
+        position: 'bottom',
+        text1: 'Por favor, preencha todos os campos!',
+      })
+      return
+    }
+
+    try {
+      setIsLoading(true)
+
+      await supabase.from('baby').insert({
+        motherName,
+        fatherName,
+        phone,
+        babyName,
+        babyAge,
+        worshipDate,
+        isMember,
+      })
+
+      Toast.show({
+        type: 'success',
+        position: 'bottom',
+        text1: 'Solicitação enviada com sucesso! 👶🏼',
+        text2: 'Em breve entraremos em contato com você.',
+      })
+
+      setMotherName('')
+      setFatherName('')
+      setPhone('')
+      setBabyName('')
+      setBabyAge('')
+      setWorshipDate(null)
+      setIsMember(null)
+
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      Toast.show({
+        type: 'error',
+        position: 'bottom',
+        text1: 'Ocorreu um erro ao enviar sua solicitação!',
+      })
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -67,12 +126,16 @@ export default function BabyPresentation() {
             className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
             placeholder="Nome da mãe"
             placeholderTextColor="#A0AEC0"
+            value={motherName}
+            onChangeText={setMotherName}
           />
 
           <TextInput
             className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
             placeholder="Nome do pai"
             placeholderTextColor="#A0AEC0"
+            value={fatherName}
+            onChangeText={setFatherName}
           />
 
           <TextInput
@@ -80,12 +143,16 @@ export default function BabyPresentation() {
             placeholder="Telefone"
             placeholderTextColor="#A0AEC0"
             keyboardType="numeric"
+            value={phone}
+            onChangeText={setPhone}
           />
 
           <TextInput
             className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
             placeholder="Nome do bebê"
             placeholderTextColor="#A0AEC0"
+            value={babyName}
+            onChangeText={setBabyName}
           />
 
           <TextInput
@@ -93,6 +160,8 @@ export default function BabyPresentation() {
             placeholder="Idade"
             placeholderTextColor="#A0AEC0"
             keyboardType="numeric"
+            value={babyAge}
+            onChangeText={setBabyAge}
           />
 
           <View>
@@ -145,12 +214,16 @@ export default function BabyPresentation() {
 
           <TouchableOpacity
             activeOpacity={0.7}
-            className="items-center rounded-lg bg-green-900 py-5"
+            className="items-center rounded-lg bg-green-900 px-3 py-4"
             onPress={handleCreateBabyPresentation}
           >
-            <Text className="font-title text-lg uppercase text-white">
-              Enviar
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text className="font-title text-lg uppercase text-white">
+                Enviar
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>
