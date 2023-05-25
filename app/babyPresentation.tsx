@@ -1,28 +1,38 @@
 import 'react-native-url-polyfill/auto'
 
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
 import { ENV_SUPABASE_TOKEN, ENV_SUPABASE_URL } from '@env'
+import { FormButton, FormDropdownInput, FormTextInput } from '../src/components'
+import { SafeAreaView, Text, View } from 'react-native'
 
-import DropDownPicker from 'react-native-dropdown-picker'
 import Toast from 'react-native-toast-message'
 import { createClient } from '@supabase/supabase-js'
+import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const supabase = createClient(ENV_SUPABASE_URL, ENV_SUPABASE_TOKEN)
 
+const BabyPresentationSchema = z.object({
+  motherName: z.string(),
+  fatherName: z.string(),
+  phone: z.string(),
+  babyName: z.string(),
+  babyAge: z.string(),
+})
+
+type BabyPresentationProps = z.infer<typeof BabyPresentationSchema>
+
 export default function BabyPresentation() {
-  const [motherName, setMotherName] = useState('')
-  const [fatherName, setFatherName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [babyName, setBabyName] = useState('')
-  const [babyAge, setBabyAge] = useState('')
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<BabyPresentationProps>({
+    resolver: zodResolver(BabyPresentationSchema),
+  })
+
   const [worshipOpen, setWorshipOpen] = useState(false)
   const [worshipDate, setWorshipDate] = useState(null)
   const [memberOpen, setMemberOpen] = useState(false)
@@ -59,22 +69,8 @@ export default function BabyPresentation() {
     },
   ])
 
-  async function handleCreateBabyPresentation() {
-    if (
-      !motherName ||
-      !phone ||
-      !babyName ||
-      !babyAge ||
-      !worshipDate ||
-      !isMember
-    ) {
-      Toast.show({
-        type: 'error',
-        position: 'bottom',
-        text1: 'Por favor, preencha todos os campos!',
-      })
-      return
-    }
+  async function handleCreateBabyPresentation(data: BabyPresentationProps) {
+    const { motherName, fatherName, phone, babyName, babyAge } = data
 
     try {
       setIsLoading(true)
@@ -96,11 +92,7 @@ export default function BabyPresentation() {
         text2: 'Em breve entraremos em contato com você.',
       })
 
-      setMotherName('')
-      setFatherName('')
-      setPhone('')
-      setBabyName('')
-      setBabyAge('')
+      reset()
       setWorshipDate(null)
       setIsMember(null)
 
@@ -123,110 +115,68 @@ export default function BabyPresentation() {
           Preencha o formulário abaixo para apresentar seu bebê em nossa Igreja
         </Text>
 
-        <View className="mt-5 flex flex-1 flex-col space-y-5">
-          <TextInput
-            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
+        <View className="mt-5 flex flex-1 flex-col">
+          <FormTextInput
+            control={control}
+            name="motherName"
+            errors={errors.motherName}
             placeholder="Nome da mãe"
-            placeholderTextColor="#A0AEC0"
-            value={motherName}
-            onChangeText={setMotherName}
           />
 
-          <TextInput
-            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
+          <FormTextInput
+            control={control}
+            name="fatherName"
+            isRequired={false}
+            errors={errors.fatherName}
             placeholder="Nome do pai"
-            placeholderTextColor="#A0AEC0"
-            value={fatherName}
-            onChangeText={setFatherName}
           />
 
-          <TextInput
-            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
+          <FormTextInput
+            control={control}
+            name="phone"
+            errors={errors.phone}
             placeholder="Telefone"
-            placeholderTextColor="#A0AEC0"
-            keyboardType="numeric"
-            value={phone}
-            onChangeText={setPhone}
           />
 
-          <TextInput
-            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
+          <FormTextInput
+            control={control}
+            name="babyName"
+            errors={errors.babyName}
             placeholder="Nome do bebê"
-            placeholderTextColor="#A0AEC0"
-            value={babyName}
-            onChangeText={setBabyName}
           />
 
-          <TextInput
-            className="border border-gray-300 rounded-lg px-3 py-2 text-lg font-body"
-            placeholder="Idade"
-            placeholderTextColor="#A0AEC0"
-            keyboardType="numeric"
-            value={babyAge}
-            onChangeText={setBabyAge}
+          <FormTextInput
+            control={control}
+            name="babyAge"
+            errors={errors.babyAge}
+            placeholder="Idade do bebê"
           />
 
-          <View>
-            <DropDownPicker
-              open={worshipOpen}
-              value={worshipDate}
-              items={worshipItems}
-              setOpen={setWorshipOpen}
-              setValue={setWorshipDate}
-              setItems={setWorshipItems}
-              placeholder="Selecione uma data"
-              placeholderStyle={{
-                color: '#A0AEC0',
-                fontSize: 18,
-                fontFamily: 'Poppins_400Regular',
-              }}
-              style={{
-                backgroundColor: '#f9fafb',
-                borderColor: '#d1d5db',
-              }}
-              zIndex={3000}
-              zIndexInverse={1000}
-              dropDownDirection="TOP"
-            />
-          </View>
+          <FormDropdownInput
+            open={worshipOpen}
+            value={worshipDate}
+            items={worshipItems}
+            setOpen={setWorshipOpen}
+            setValue={setWorshipDate}
+            setItems={setWorshipItems}
+            placeholder="Selecione uma data"
+          />
 
-          <View>
-            <DropDownPicker
-              open={memberOpen}
-              value={isMember}
-              items={memberItems}
-              setOpen={setMemberOpen}
-              setValue={setIsMember}
-              setItems={setMemberItems}
-              placeholder="É membro da IBF?"
-              placeholderStyle={{
-                color: '#A0AEC0',
-                fontSize: 18,
-                fontFamily: 'Poppins_400Regular',
-              }}
-              style={{
-                backgroundColor: '#f9fafb',
-                borderColor: '#d1d5db',
-              }}
-              zIndex={3000}
-              zIndexInverse={1000}
-              dropDownDirection="TOP"
-            />
-          </View>
+          <FormDropdownInput
+            open={memberOpen}
+            value={isMember}
+            items={memberItems}
+            setOpen={setMemberOpen}
+            setValue={setIsMember}
+            setItems={setMemberItems}
+            placeholder="É membro da IBF?"
+          />
 
-          <TouchableOpacity
-            activeOpacity={0.7}
-            className="items-center rounded-lg bg-green-900 px-3 py-4"
-            onPress={handleCreateBabyPresentation}
-          >
-            {isLoading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text className="font-title text-lg uppercase text-white">
-                Enviar
-              </Text>
-            )}
-          </TouchableOpacity>
+          <FormButton
+            onPress={handleSubmit(handleCreateBabyPresentation)}
+            isLoading={isLoading}
+            title="Enviar"
+          />
         </View>
       </View>
     </SafeAreaView>

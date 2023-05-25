@@ -1,3 +1,6 @@
 export { EventCarousel } from './EventCarousel'
+export { FormButton } from './FormButton'
+export { FormDropdownInput } from './FormDropdownInput'
+export { FormTextInput } from './FormTextInput'
 export { MenuItem } from './MenuItem'
 export { PlaylistCarousel } from './PlaylistCarousel'
