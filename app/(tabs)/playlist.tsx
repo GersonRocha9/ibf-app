@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { useEffect, useState } from 'react'
 
+import { Crosshair } from 'phosphor-react-native'
 import { PlaylistCarousel } from '../../src/components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { youtubeAPI } from '../../src/services'
@@ -106,7 +107,9 @@ export default function Playlist() {
         source={{
           uri: messagesVideos[0]?.video.thumbnails[3].url,
         }}
-        className="mt-5 rounded-lg overflow-hidden aspect-video w-full"
+        className={`mt-5 rounded-lg overflow-hidden aspect-video w-full ${
+          messagesVideos[0].video.isLiveNow && 'border-2 border-red-500'
+        }`}
       >
         <TouchableOpacity
           onPress={() => {
@@ -115,6 +118,15 @@ export default function Playlist() {
           className="flex-1"
         />
       </ImageBackground>
+
+      {messagesVideos[0].video.isLiveNow && (
+        <View className="flex-row items-center justify-center gap-1 mt-1">
+          <Crosshair size={18} color="#7f1d1d" weight="bold" />
+          <Text className="text-red-900 font-body text-sm uppercase">
+            Estamos ao vivo 👆🏼
+          </Text>
+        </View>
+      )}
 
       <PlaylistCarousel
         title="Mensagens anteriores"

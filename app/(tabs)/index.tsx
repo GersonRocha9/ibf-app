@@ -1,4 +1,11 @@
-import { Image, ImageBackground, ScrollView, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native'
 import { useEffect, useState } from 'react'
 
 import { CalendarCheck } from 'phosphor-react-native'
@@ -29,6 +36,7 @@ interface Event {
 export default function Home() {
   const { top, bottom } = useSafeAreaInsets()
   const [events, setEvents] = useState<Event[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   async function getEvents() {
     const response = await sanityAPI.get('')
@@ -43,6 +51,7 @@ export default function Home() {
     )
 
     setEvents(eventsOrderByDate)
+    setIsLoading(false)
   }
 
   const formattedEvents = events.map((event) => {
@@ -89,20 +98,28 @@ export default function Home() {
         <CalendarCheck size={24} color="#CC93AD" weight="bold" />
         <Text className="font-title text-lg text-gray-950">Em destaque:</Text>
       </View>
-      {/* Banner do Evento Principal */}
-      <ImageBackground
-        source={{
-          uri: `https://cdn.sanity.io/images/k1j0zc38/production/${formattedEvents[0]?.image?.asset?._ref}`,
-        }}
-        className="mt-2 rounded-lg overflow-hidden aspect-square w-full"
-      />
 
-      <EventCarousel
-        data={formattedEvents}
-        title="Próximos eventos"
-        seeAll
-        hasSpotlight
-      />
+      {isLoading ? (
+        <View className="flex-1 bg-gray-50 items-center justify-center">
+          <ActivityIndicator size="large" color="#000" />
+        </View>
+      ) : (
+        <>
+          <ImageBackground
+            source={{
+              uri: `https://cdn.sanity.io/images/k1j0zc38/production/${formattedEvents[0]?.image?.asset?._ref}`,
+            }}
+            className="mt-2 rounded-lg overflow-hidden aspect-square w-full"
+          />
+
+          <EventCarousel
+            data={formattedEvents}
+            title="Próximos eventos"
+            seeAll
+            hasSpotlight
+          />
+        </>
+      )}
     </ScrollView>
   )
 }

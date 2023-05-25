@@ -64,8 +64,8 @@ export default function Tithes() {
       />
 
       <TouchableOpacity onPress={copyToClipboard}>
-        <View className="flex-row items-center justify-center gap-2">
-          <Text className="text-gray-950 text-lg font-title mt-2 text-center">
+        <View className="flex-row items-center justify-center mb-8 gap-2">
+          <Text className="text-gray-950 text-lg font-title text-center">
             Toque para copiar a chave PIX
           </Text>
           <Copy size={28} weight="bold" />

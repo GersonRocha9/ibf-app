@@ -115,6 +115,7 @@ export default function BabyPresentation() {
               }}
               zIndex={3000}
               zIndexInverse={1000}
+              dropDownDirection="TOP"
             />
           </View>
 
@@ -138,6 +139,7 @@ export default function BabyPresentation() {
               }}
               zIndex={3000}
               zIndexInverse={1000}
+              dropDownDirection="TOP"
             />
           </View>
 

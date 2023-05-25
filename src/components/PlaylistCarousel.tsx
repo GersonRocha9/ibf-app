@@ -1,3 +1,4 @@
+import { AirplaneTilt, MicrophoneStage } from 'phosphor-react-native'
 import {
   FlatList,
   ImageBackground,
@@ -5,8 +6,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-
-import { MicrophoneStage } from 'phosphor-react-native'
 
 interface PlaylistCarouselProps {
   title: string
@@ -24,7 +23,11 @@ export function PlaylistCarousel({
   return (
     <>
       <View className="flex-row items-center gap-1 mt-5">
-        <MicrophoneStage size={24} color="#CC93AD" weight="bold" />
+        {hasSpotlight ? (
+          <MicrophoneStage size={24} color="#CC93AD" weight="bold" />
+        ) : (
+          <AirplaneTilt size={24} color="#CC93AD" weight="bold" />
+        )}
         <Text className="font-title text-lg text-gray-950">{title}</Text>
       </View>
 
