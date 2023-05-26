@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "ibf-app",
+    "name": "Igreja Batista do Flamboyant",
+    "description": "Aplicativo oficial da Igreja Batista do Flamboyant",
     "slug": "ibf-app",
     "scheme": "ibflamboyant",
     "version": "1.0.0",
@@ -12,9 +13,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#E6F7F4"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

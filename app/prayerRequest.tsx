@@ -1,17 +1,14 @@
 import 'react-native-url-polyfill/auto'
 
-import { ENV_SUPABASE_TOKEN, ENV_SUPABASE_URL } from '@env'
 import { FormButton, FormTextInput } from '../src/components'
 import { Text, View } from 'react-native'
 
 import Toast from 'react-native-toast-message'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '../src/services'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-const supabase = createClient(ENV_SUPABASE_URL, ENV_SUPABASE_TOKEN)
 
 const PrayerRequestSchema = z.object({
   name: z.string(),
