@@ -3,21 +3,16 @@
     "preview": {
       "android": {
         "buildType": "apk"
-      },
-      "channel": "preview"
+      }
     },
     "preview2": {
       "android": {
         "gradleCommand": ":app:assembleRelease"
-      },
-      "channel": "preview2"
+      }
     },
     "preview3": {
-      "developmentClient": true,
-      "channel": "preview3"
+      "developmentClient": true
     },
-    "production": {
-      "channel": "production"
-    }
+    "production": {}
   }
 }
