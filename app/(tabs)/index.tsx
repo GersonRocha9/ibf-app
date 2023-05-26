@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import 'react-native-gesture-handler'
+
 import {
   ActivityIndicator,
   Image,
@@ -7,12 +8,13 @@ import {
   Text,
   View,
 } from 'react-native'
+import { useEffect, useState } from 'react'
 
 import { CalendarCheck } from 'phosphor-react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import IBFLogo from '../../src/assets/logo.png'
 import { EventCarousel } from '../../src/components'
+import IBFLogo from '../../src/assets/logo.png'
 import { sanityAPI } from '../../src/services'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface Event {
   _id: string
