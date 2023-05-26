@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#E6F7F4"
       },
       "package": "com.gersonrocha9.ibfapp"
