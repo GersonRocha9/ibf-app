@@ -13,16 +13,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#E6F7F4"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/anImageThatDoesNotExist.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/adaptive-icon.png.png",
+        "backgroundColor": "#E6F7F4"
       },
       "package": "com.gersonrocha9.ibfapp"
     },
