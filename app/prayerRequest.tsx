@@ -88,6 +88,7 @@ export default function PrayerRequest() {
           placeholder="Pedido de oração"
           multiline
           numberOfLines={5}
+          textAlignVertical="top"
         />
 
         <FormButton
