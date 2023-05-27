@@ -7,4 +7,5 @@ declare module '@env' {
   export const ENV_SUPABASE_PASSWORD: string
   export const ENV_SUPABASE_URL: string
   export const ENV_SUPABASE_TOKEN: string
+  export const ENV_GOOGLEMAPS_APIKEY: string
 }

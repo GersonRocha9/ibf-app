@@ -1,5 +1,5 @@
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { Text, View } from 'react-native'
-import MapView, { Marker } from 'react-native-maps'
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -24,6 +24,7 @@ export default function Map() {
 
       <MapView
         className="w-full h-96 mt-5"
+        provider={PROVIDER_GOOGLE}
         initialRegion={{
           latitude,
           longitude,
