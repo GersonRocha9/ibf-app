@@ -1,5 +1,3 @@
-import 'react-native-gesture-handler'
-
 import {
   ActivityIndicator,
   Image,
