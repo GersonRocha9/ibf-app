@@ -11,10 +11,6 @@ import Toast from 'react-native-toast-message'
 
 export { ErrorBoundary } from 'expo-router'
 
-export const unstable_settings = {
-  initialRouteName: '(tabs)',
-}
-
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     Poppins_400Regular,
@@ -25,18 +21,21 @@ export default function RootLayout() {
     if (error) throw error
   }, [error])
 
-  return (
-    <>
-      {!loaded && <SplashScreen />}
-      {loaded && <RootLayoutNav />}
-    </>
-  )
+  return loaded ? <RootLayoutNav /> : <SplashScreen />
 }
 
 function RootLayoutNav() {
   return (
     <>
-      <Stack>
+      <Stack
+        screenOptions={{
+          headerBackTitleVisible: false,
+          headerTitleStyle: {
+            fontFamily: 'Poppins_700Bold',
+          },
+        }}
+        initialRouteName="(tabs)"
+      >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
           name="downloads"
@@ -49,10 +48,6 @@ function RootLayoutNav() {
           name="babyPresentation"
           options={{
             title: 'Apresentação de bebês',
-            headerBackTitleVisible: false,
-            headerTitleStyle: {
-              fontFamily: 'Poppins_700Bold',
-            },
           }}
         />
 
@@ -60,10 +55,6 @@ function RootLayoutNav() {
           name="prayerRequest"
           options={{
             title: 'Pedidos de oração',
-            headerBackTitleVisible: false,
-            headerTitleStyle: {
-              fontFamily: 'Poppins_700Bold',
-            },
           }}
         />
 
@@ -71,10 +62,6 @@ function RootLayoutNav() {
           name="[...missing]"
           options={{
             title: 'Em breve 🔒',
-            headerBackTitleVisible: false,
-            headerTitleStyle: {
-              fontFamily: 'Poppins_700Bold',
-            },
           }}
         />
       </Stack>
