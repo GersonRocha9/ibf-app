@@ -27,14 +27,14 @@ export function EventCarousel({
 
       <FlatList
         data={hasSpotlight ? data.slice(1) : data}
-        keyExtractor={(event) => String(event.node.id)}
+        keyExtractor={(event) => String(event?.node?.id)}
         horizontal
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View className="w-2" />}
         renderItem={({ item: event }) => (
           <ImageBackground
             source={{
-              uri: event.node.display_url,
+              uri: event?.node?.display_url,
             }}
             className="rounded-lg w-40 h-40 overflow-hidden"
           />

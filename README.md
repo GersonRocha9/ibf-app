@@ -16,13 +16,12 @@ Projeto de aplicativo Android e iOS para a Igreja Batista do Flamboyant totalmen
 - React Native + Expo
 - TypeScript
 - TailwindCSS
-- SanityCMS
 - React Query
 - Axios
 - Expo Router
 - React Hook Form + Zod
 - ESLint + Prettier
-- Bancos de dados: SanityCMS para parte de eventos, ministérios e pastorais | Supabase para pedidos de oração e apresentação de bebês
+- Bancos de dados: API do Instagram para parte de eventos | API própria para pedidos de oração e apresentação de bebês, Ministérios e Pastorais
 
 ### Execução
 

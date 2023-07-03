@@ -3,7 +3,7 @@ import pixLogo from '../assets/pixLogo.png'
 import santanderLogo from '../assets/santanderLogo.png'
 import sicoobLogo from '../assets/sicoobLogo.png'
 
-export const tithes = [
+export const mockedTithes = [
   {
     id: '1',
     bank: 'Banco Itaú - 341',

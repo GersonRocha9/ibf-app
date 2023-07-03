@@ -1,25 +1,22 @@
 import 'react-native-url-polyfill/auto'
 
-import { FormButton, FormTextInput } from '../src/components'
+import { FormButton, FormTextInput } from '@components'
 import { SafeAreaView, Text, View } from 'react-native'
 
-import { babyPresentationSchema } from '../src/schemas/babyPresentationSchema'
-import { handleCreateBabyPresentation } from '../src/services'
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { babyPresentationSchema } from '@schemas'
+import { handleCreateBabyPresentation } from '@services'
+import { useForm } from 'react-hook-form'
+import z from 'zod'
 
 export type BabyPresentationProps = z.infer<typeof babyPresentationSchema>
 
 export default function BabyPresentation() {
-  const [isLoading, setIsLoading] = useState(false)
-
   const {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<BabyPresentationProps>({
     resolver: zodResolver(babyPresentationSchema),
   })
@@ -70,9 +67,9 @@ export default function BabyPresentation() {
 
           <FormButton
             onPress={handleSubmit((data) =>
-              handleCreateBabyPresentation(data, reset, setIsLoading),
+              handleCreateBabyPresentation(data, reset),
             )}
-            isLoading={isLoading}
+            isLoading={isSubmitting}
             title="Enviar"
           />
         </View>

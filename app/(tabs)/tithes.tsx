@@ -2,10 +2,10 @@ import * as Clipboard from 'expo-clipboard'
 
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 
+import { mockedTithes } from '@models'
 import { Copy } from 'phosphor-react-native'
-import Toast from 'react-native-toast-message'
-import { tithes } from '../../src/utils'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import Toast from 'react-native-toast-message'
 
 export default function Tithes() {
   const { top, bottom } = useSafeAreaInsets()
@@ -30,7 +30,7 @@ export default function Tithes() {
       </Text>
 
       <FlatList
-        data={tithes}
+        data={mockedTithes}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View className="flex flex-row items-center gap-5 py-4">

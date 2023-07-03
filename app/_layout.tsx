@@ -4,11 +4,11 @@ import {
   useFonts,
 } from '@expo-google-fonts/poppins'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import React, { useEffect } from 'react'
 
-import { Routes } from '../src/routes/Routes'
+import { Routes } from '@routes'
 import { SplashScreen } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import { useEffect } from 'react'
 import Toast from 'react-native-toast-message'
 
 const queryClient = new QueryClient()

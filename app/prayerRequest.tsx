@@ -1,25 +1,22 @@
 import 'react-native-url-polyfill/auto'
 
-import { FormButton, FormTextInput } from '../src/components'
+import { FormButton, FormTextInput } from '@components'
 import { Text, View } from 'react-native'
 
-import { PrayerRequestSchema } from '../src/schemas'
-import { handleCreatePrayerRequest } from '../src/services'
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
-import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { PrayerRequestSchema } from '@schemas'
+import { handleCreatePrayerRequest } from '@services'
+import { useForm } from 'react-hook-form'
+import z from 'zod'
 
 export type PrayerRequestProps = z.infer<typeof PrayerRequestSchema>
 
 export default function PrayerRequest() {
-  const [isLoading, setIsLoading] = useState(false)
-
   const {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<PrayerRequestProps>({
     resolver: zodResolver(PrayerRequestSchema),
   })
@@ -56,9 +53,9 @@ export default function PrayerRequest() {
         />
 
         <FormButton
-          isLoading={isLoading}
+          isLoading={isSubmitting}
           onPress={handleSubmit((data) =>
-            handleCreatePrayerRequest(data, reset, setIsLoading),
+            handleCreatePrayerRequest(data, reset),
           )}
           title="Enviar"
         />

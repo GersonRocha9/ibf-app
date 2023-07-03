@@ -10,8 +10,8 @@ import {
 } from 'phosphor-react-native'
 import { Text, View } from 'react-native'
 
+import { MenuItem } from '@components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { MenuItem } from '../../src/components'
 
 export default function Menu() {
   const { top, bottom } = useSafeAreaInsets()

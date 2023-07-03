@@ -7,12 +7,12 @@ import {
   View,
 } from 'react-native'
 
-import { CalendarCheck } from 'phosphor-react-native'
-import { EventCarousel } from '../../src/components'
-import IBFLogo from '../../src/assets/logo.png'
-import { getEvents } from '../../src/services'
+import { EventCarousel } from '@components'
+import { getEvents } from '@services'
 import { useQuery } from '@tanstack/react-query'
+import { CalendarCheck } from 'phosphor-react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import IBFLogo from '../../src/assets/logo.png'
 
 export default function Home() {
   const { top, bottom } = useSafeAreaInsets()

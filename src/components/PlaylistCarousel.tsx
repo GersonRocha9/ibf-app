@@ -1,4 +1,4 @@
-import { AirplaneTilt, MicrophoneStage } from 'phosphor-react-native'
+import { AirplaneTilt, MicrophoneStage, Play } from 'phosphor-react-native'
 import {
   FlatList,
   ImageBackground,
@@ -11,7 +11,7 @@ interface PlaylistCarouselProps {
   title: string
   data: any[]
   hasSpotlight?: boolean
-  onPress?: (videoId) => void
+  onPress?: (videoId: string) => void
 }
 
 export function PlaylistCarousel({
@@ -47,8 +47,10 @@ export function PlaylistCarousel({
           >
             <TouchableOpacity
               onPress={() => onPress(item.video.videoId)}
-              className="flex-1"
-            />
+              className="flex-1 flex-row items-center justify-center"
+            >
+              <Play size={36} weight="bold" color="#FFF" />
+            </TouchableOpacity>
           </ImageBackground>
         )}
       />
