@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^3.1.0",
     "@sanity/client": "^6.1.2",
     "@supabase/supabase-js": "^2.22.0",
+    "@tanstack/react-query": "^4.29.19",
     "@types/react": "~18.0.27",
     "axios": "^1.4.0",
     "expo": "^48.0.0",

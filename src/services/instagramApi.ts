@@ -29,3 +29,13 @@ export interface InstagramEventResponse {
     }
   }
 }
+
+export async function getEvents() {
+  const instagramResponse = await instagramAPI.get('/ig/posts_username/', {
+    params: {
+      user: 'ibflamboyant',
+    },
+  })
+
+  return instagramResponse.data.data.user.edge_owner_to_timeline_media.edges
+}

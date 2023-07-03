@@ -1,3 +1,3 @@
-export { InstagramEventResponse, instagramAPI } from './instagramApi'
+export * from './instagramApi'
 export { supabase } from './supabaseApi'
 export { youtubeAPI } from './youtubeApi'
