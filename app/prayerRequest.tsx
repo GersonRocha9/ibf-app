@@ -3,20 +3,14 @@ import 'react-native-url-polyfill/auto'
 import { FormButton, FormTextInput } from '../src/components'
 import { Text, View } from 'react-native'
 
-import Toast from 'react-native-toast-message'
-import { supabase } from '../src/services'
+import { PrayerRequestSchema } from '../src/schemas'
+import { handleCreatePrayerRequest } from '../src/services'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-const PrayerRequestSchema = z.object({
-  name: z.string(),
-  phone: z.string(),
-  prayerRequest: z.string(),
-})
-
-type PrayerRequestProps = z.infer<typeof PrayerRequestSchema>
+export type PrayerRequestProps = z.infer<typeof PrayerRequestSchema>
 
 export default function PrayerRequest() {
   const [isLoading, setIsLoading] = useState(false)
@@ -29,36 +23,6 @@ export default function PrayerRequest() {
   } = useForm<PrayerRequestProps>({
     resolver: zodResolver(PrayerRequestSchema),
   })
-
-  async function handleCreatePrayerRequest(data: PrayerRequestProps) {
-    try {
-      setIsLoading(true)
-
-      await supabase.from('prayers').insert({
-        name: data.name,
-        phone: data.phone,
-        prayerRequest: data.prayerRequest,
-      })
-
-      Toast.show({
-        type: 'success',
-        position: 'bottom',
-        text1: 'Pedido de oração enviado com sucesso! ✅',
-        text2: 'Que Deus abençoe sua vida! 🙏🏼',
-      })
-
-      reset()
-      setIsLoading(false)
-    } catch (error) {
-      console.log(error)
-      Toast.show({
-        type: 'error',
-        position: 'bottom',
-        text1: 'Ocorreu um erro ao enviar seu pedido de oração!',
-        text2: 'Por favor, tente novamente mais tarde.',
-      })
-    }
-  }
 
   return (
     <View className="bg-gray-50 flex-1 px-5">
@@ -93,7 +57,9 @@ export default function PrayerRequest() {
 
         <FormButton
           isLoading={isLoading}
-          onPress={handleSubmit(handleCreatePrayerRequest)}
+          onPress={handleSubmit((data) =>
+            handleCreatePrayerRequest(data, reset, setIsLoading),
+          )}
           title="Enviar"
         />
       </View>
