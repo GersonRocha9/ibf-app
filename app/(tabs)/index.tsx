@@ -6,75 +6,33 @@ import {
   Text,
   View,
 } from 'react-native'
+import { InstagramEventResponse, instagramAPI } from '../../src/services'
 import { useEffect, useState } from 'react'
 
 import { CalendarCheck } from 'phosphor-react-native'
 import { EventCarousel } from '../../src/components'
 import IBFLogo from '../../src/assets/logo.png'
-import { sanityAPI } from '../../src/services'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-interface Event {
-  _id: string
-  _type: string
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  date: string
-  description: string
-  image: {
-    _type: string
-    asset: {
-      _type: string
-      _ref: string
-    }
-  }
-  place: string
-  title: string
-}
 
 export default function Home() {
   const { top, bottom } = useSafeAreaInsets()
-  const [events, setEvents] = useState<Event[]>([])
+  const [instagramEvents, setInstagramEvents] = useState<
+    InstagramEventResponse[]
+  >([])
   const [isLoading, setIsLoading] = useState(true)
 
   async function getEvents() {
-    const response = await sanityAPI.get('', {
+    const instagramResponse = await instagramAPI.get('/ig/posts_username/', {
       params: {
-        query: '*[_type == "event"]',
+        user: 'ibflamboyant',
       },
     })
 
-    const eventsOrderByDate = response.data.result.sort(
-      (a: Event, b: Event) => {
-        const dateA = new Date(a.date)
-        const dateB = new Date(b.date)
-
-        return dateB.getTime() - dateA.getTime()
-      },
+    setInstagramEvents(
+      instagramResponse.data.data.user.edge_owner_to_timeline_media.edges,
     )
-
-    setEvents(eventsOrderByDate)
     setIsLoading(false)
   }
-
-  const formattedEvents = events.map((event) => {
-    const formattedImage = event.image.asset._ref
-      .replace('image-', '')
-      .replace('-jpg', '.jpg')
-      .replace('-png', '.png')
-
-    return {
-      ...event,
-      image: {
-        ...event.image,
-        asset: {
-          ...event.image.asset,
-          _ref: formattedImage,
-        },
-      },
-    }
-  })
 
   useEffect(() => {
     getEvents()
@@ -111,13 +69,13 @@ export default function Home() {
         <>
           <ImageBackground
             source={{
-              uri: `https://cdn.sanity.io/images/k1j0zc38/production/${formattedEvents[0]?.image?.asset?._ref}`,
+              uri: instagramEvents[0].node.display_url,
             }}
             className="mt-2 rounded-lg overflow-hidden aspect-square w-full"
           />
 
           <EventCarousel
-            data={formattedEvents}
+            data={instagramEvents}
             title="Próximos eventos"
             seeAll
             hasSpotlight

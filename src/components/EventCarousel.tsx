@@ -1,7 +1,7 @@
 import { FlatList, ImageBackground, Text, View } from 'react-native'
 
-import { CalendarCheck } from 'phosphor-react-native'
 import { Link } from 'expo-router'
+import { CalendarCheck } from 'phosphor-react-native'
 
 interface EventCarouselProps {
   title: string
@@ -27,14 +27,14 @@ export function EventCarousel({
 
       <FlatList
         data={hasSpotlight ? data.slice(1) : data}
-        keyExtractor={(event) => String(event._id)}
+        keyExtractor={(event) => String(event.node.id)}
         horizontal
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View className="w-2" />}
         renderItem={({ item: event }) => (
           <ImageBackground
             source={{
-              uri: `https://cdn.sanity.io/images/k1j0zc38/production/${event?.image?.asset?._ref}`,
+              uri: event.node.display_url,
             }}
             className="rounded-lg w-40 h-40 overflow-hidden"
           />
